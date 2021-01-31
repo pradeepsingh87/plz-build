@@ -75,3 +75,10 @@ To use this new package in our "hello world" program, we have to add it as a dep
 ```
  deps = ["//src/greetings:greetings"],
 ```
+This can now be used in the main.py as 
+```
+from src.greetings import greetings
+
+print(greetings.greeting() + ", world!")
+```
+
