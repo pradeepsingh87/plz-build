@@ -8,5 +8,8 @@
 ; [please]
 ; version = 15.13.0
 
+; Below is also the default path . Also python3.7 exisit in this path so no need to add it seperatly
+; /usr/bin/python3.7
+
 [build]
-path = /usr/bin/python3.7:/usr/local/bin:/usr/bin:/bin
+path = /usr/local/bin:/usr/bin:/bin
