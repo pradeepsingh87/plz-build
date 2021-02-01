@@ -13,3 +13,7 @@
 
 [build]
 path = /usr/local/bin:/usr/bin:/bin
+
+[python]
+moduledir = third_party.python
+

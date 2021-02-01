@@ -82,3 +82,48 @@ from src.greetings import greetings
 print(greetings.greeting() + ", world!")
 ```
 
+## Testing our code
+python_test() to define our test target. This is a special build rule that is considered a test. These rules can be executed as such:
+
+```
+plz test //src/...
+```
+This will look for all python_test targets under src package and run them
+```
+ plz cover //src/...
+```
+This will generate the coverage report .
+
+## Third-party dependencies
+third-party dependencies live under //third_party/... (although they don't have to), so let's create that package:
+```
+package(default_visibility = ["PUBLIC"])
+```
+We use the package() built-in function to set the default visibility for this package.
+This can be very useful for third-party rules to avoid having to specify visibility = ["PUBLIC"] on every pip_library() invocation.
+The visibility "PUBLIC" is a special case. Typically, items in the visibility list are labels. "PUBLIC" is equivalent to //....
+
+Importing Python modules is based on the import path.That means by default, we'd import NumPy as 
+```
+import third_party.python.numpy
+```
+
+To fix this, we need to tell Please where our third-party module is. Add the following to your .plzconfig:
+In .plzconfig
+```
+[python]
+moduledir = third_party.python
+```
+We can now use this library in our code:
+```
+from numpy import random
+```
+And add NumPy as a dependency:src/greetings/BUILD
+```
+python_library(
+    name = "greetings",
+    srcs = ["greetings.py"],
+    visibility = ["//src/..."],
+    deps = ["//third_party/python:numpy"],
+)
+```
